@@ -27,7 +27,7 @@ const Dashboard = async () => {
   return (
     <BentoStagger>
       <Sidebar />
-      <div className="flex flex-1 px-5 md:px-10 lg:px-15 py-15 flex-col gap-6">
+      <div className="flex flex-1 px-5 md:px-6 lg:px-15 py-15 flex-col gap-6">
         <header className="flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">

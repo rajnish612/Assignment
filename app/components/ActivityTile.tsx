@@ -18,7 +18,7 @@ export default function ActivityTile() {
   return (
     <motion.article
       variants={item}
-      className="tile-surface tile-hover relative col-span-12 flex h-full flex-col overflow-hidden rounded-3xl p-6 md:col-span-4"
+      className="tile-surface tile-hover relative col-span-12 flex h-full flex-col overflow-hidden rounded-3xl p-6 md:col-span-5"
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
