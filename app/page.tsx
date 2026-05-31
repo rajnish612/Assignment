@@ -1,8 +1,9 @@
+import { cookies } from "next/headers";
 import ActivityTile from "./components/ActivityTile";
 import CourseTile, { type CourseTileData } from "./components/CourseTile";
 import HeroTile from "./components/HeroTile";
 import Sidebar from "./components/Sidebar";
-
+import { createClient } from "@/utils/supabase/server";
 const courses: CourseTileData[] = [
   {
     id: "course-orbit",
@@ -30,7 +31,13 @@ const courses: CourseTileData[] = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+  const supabase = createClient(cookieStore);
+  // const { data: courses, error } = await supabase
+  //   .from("courses")
+  //   .select("*")
+  //   .order("created_at", { ascending: false });
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#090b14] text-white">
@@ -46,8 +53,12 @@ export default function Home() {
         <main className="flex flex-1 flex-col gap-6">
           <header className="flex items-center justify-between">
             <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">Overview</p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">Student Dashboard</h2>
+              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
+                Overview
+              </p>
+              <h2 className="mt-2 text-2xl font-semibold text-white">
+                Student Dashboard
+              </h2>
             </div>
             <div className="flex items-center gap-3">
               <button className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300 transition-transform duration-300 hover:scale-105">
@@ -67,8 +78,12 @@ export default function Home() {
 
           <section className="flex items-center justify-between">
             <div>
-              <h3 className="text-lg font-semibold text-white">Active Courses</h3>
-              <p className="text-xs text-slate-400">Personalized learning lineup</p>
+              <h3 className="text-lg font-semibold text-white">
+                Active Courses
+              </h3>
+              <p className="text-xs text-slate-400">
+                Personalized learning lineup
+              </p>
             </div>
             <button className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300 transition-transform duration-300 hover:scale-105">
               View all
