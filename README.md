@@ -33,6 +33,41 @@ The project focuses on clean server/client separation, smooth UI interactions, a
 
 This project uses a **hybrid architecture** combining Server and Client Components.
 
+in this project, I carefully separated Server Components and Client Components based on responsibility, especially because Next.js App Router enforces a strict boundary between server-only logic and browser-based interactions.
+
+I used Server Components for all data-related logic, mainly:
+
+Fetching course data from Supabase
+Handling database queries and errors
+Rendering initial dashboard structure
+
+Example:
+
+Dashboard (Server Component)
+├── CoursesGrid (Client Component)
+│   ├── CourseCard (Client Component)
+├── Sidebar (Client Component)
+
+
+All interactive and animated parts were moved to Client Components, such as:
+Framer Motion animations (stagger, hover, spring effects)
+Sidebar collapse/expand behavior
+Course card hover interactions
+Layout animations (layoutId highlights)
+
+Examples:
+
+CourseTile
+Sidebar
+CoursesGrid
+BentoStagger
+
+
+**How Data Flows Between Them**
+Server Component fetches data from Supabase
+Data is passed as props to Client Components
+Client Components handle rendering + animations
+UI interactions happen only after hydration
 ---
 
 ## Challenges Faced
