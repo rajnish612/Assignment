@@ -1,18 +1,14 @@
 import { cookies } from "next/headers";
 import ActivityTile from "./components/ActivityTile";
-import CourseTile, { type CourseTileData } from "./components/CourseTile";
+
 import HeroTile from "./components/HeroTile";
 import Sidebar from "./components/Sidebar";
-import { createClient } from "@/utils/supabase/server";
+
+import { Suspense } from "react";
+import CourseSkeleton from "./components/CourseSkeleton";
+import CoursesSection from "./components/CourseSection";
 
 export default async function Home() {
-  const cookieStore = await cookies();
-  const supabase = createClient(cookieStore);
-  const { data: courses, error } = await supabase
-    .from("courses")
-    .select("*")
-    .order("created_at", { ascending: false });
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#090b14] text-white">
       <div className="noise-layer absolute inset-0 opacity-30" />
@@ -63,12 +59,9 @@ export default async function Home() {
               View all
             </button>
           </section>
-
-          <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {courses?.map((course) => (
-              <CourseTile key={course.id} {...course} />
-            ))}
-          </section>
+          <Suspense fallback={<CourseSkeleton />}>
+            <CoursesSection />
+          </Suspense>
         </main>
       </div>
     </div>
