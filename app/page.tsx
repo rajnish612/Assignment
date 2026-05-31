@@ -14,7 +14,7 @@ export default async function Home() {
 
       
 
-      <main>
+      <main className="min-h-screen">
         <Suspense fallback={<BentoSkeleton />}>
           <Dashboard />
         </Suspense>

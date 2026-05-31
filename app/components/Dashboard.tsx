@@ -4,7 +4,6 @@ import { createClient } from "@/utils/supabase/server";
 import CourseErrorState from "./CourseErrorState";
 import ActivityTile from "./ActivityTile";
 import CourseTile from "./CourseTile";
-import CoursesGrid from "./CourseGrid";
 import Sidebar from "./Sidebar";
 import BentoStagger from "./BentoStagger";
 
@@ -27,10 +26,8 @@ const Dashboard = async () => {
   }
   return (
     <BentoStagger>
-      <aside className="flex">
-        <Sidebar />
-      </aside>
-      <div className="flex flex-1 flex-col gap-6">
+      <Sidebar />
+      <div className="flex flex-1 px-5 md:px-10 lg:px-15 py-15 flex-col gap-6">
         <header className="flex items-center justify-between">
           <div>
             <p className="text-xs uppercase tracking-[0.3em] text-slate-500">

@@ -1,6 +1,6 @@
 export default function BentoSkeleton() {
   return (
-    <section className="grid grid-cols-12 gap-6">
+    <section className="grid grid-cols-12 gap-6 px-5 md:px-10 lg:px-15 py-15  ">
       <article className="tile-surface col-span-12 flex h-full animate-pulse flex-col justify-between gap-6 rounded-3xl p-6 md:col-span-8">
         <div>
           <div className="h-3 w-36 rounded-full bg-white/10" />
