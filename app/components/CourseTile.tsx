@@ -4,7 +4,11 @@ import { motion } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 const item = {
   hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+  },
 };
 const bar = {
   hidden: { width: 0 },

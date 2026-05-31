@@ -8,11 +8,23 @@ interface HeroTileProps {
   streakDays: number;
   weeklyGoal: string;
 }
-
-export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps) {
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+  },
+};
+export default function HeroTile({
+  name,
+  streakDays,
+  weeklyGoal,
+}: HeroTileProps) {
   return (
     <motion.article
-      className="tile-surface tile-hover relative col-span-12 flex h-full flex-col justify-between gap-6 overflow-hidden rounded-3xl p-6 md:col-span-8"
+      variants={item}
+      className="tile-surface  tile-hover relative col-span-12 flex h-full flex-col justify-between gap-6 overflow-hidden rounded-3xl p-6 md:col-span-8"
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
@@ -21,13 +33,15 @@ export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps
         whileHover={{ borderColor: "rgba(255,255,255,0.15)" }}
       />
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Student Dashboard</p>
+        <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+          Student Dashboard
+        </p>
         <h1 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
           Welcome back, {name}.
         </h1>
         <p className="mt-3 max-w-xl text-sm text-slate-300">
-          Your neural sprint is on track. Keep building momentum with focused bursts and
-          adaptive labs.
+          Your neural sprint is on track. Keep building momentum with focused
+          bursts and adaptive labs.
         </p>
       </div>
       <div className="grid gap-4 sm:grid-cols-3">
@@ -38,7 +52,9 @@ export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps
               <Flame size={14} />
             </span>
           </div>
-          <p className="mt-3 text-2xl font-semibold text-white">{streakDays} days</p>
+          <p className="mt-3 text-2xl font-semibold text-white">
+            {streakDays} days
+          </p>
           <p className="mt-1 text-xs text-slate-400">Personal best 62 days</p>
         </div>
         <div className="rounded-2xl border border-white/10 bg-white/5 p-4">

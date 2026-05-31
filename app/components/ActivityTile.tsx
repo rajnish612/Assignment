@@ -6,10 +6,18 @@ import { Activity, Calendar } from "lucide-react";
 const activity = [
   6, 10, 7, 12, 9, 14, 11, 8, 6, 10, 12, 15, 9, 13, 8, 6, 10, 12, 14, 7,
 ];
-
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+  },
+};
 export default function ActivityTile() {
   return (
     <motion.article
+      variants={item}
       className="tile-surface tile-hover relative col-span-12 flex h-full flex-col overflow-hidden rounded-3xl p-6 md:col-span-4"
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
@@ -20,8 +28,12 @@ export default function ActivityTile() {
       />
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Activity</p>
-          <h3 className="mt-2 text-lg font-semibold text-white">Learning Pulse</h3>
+          <p className="text-xs uppercase tracking-[0.3em] text-slate-400">
+            Activity
+          </p>
+          <h3 className="mt-2 text-lg font-semibold text-white">
+            Learning Pulse
+          </h3>
         </div>
         <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300">
           <Calendar size={12} /> Last 20 days

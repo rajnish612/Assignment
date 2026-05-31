@@ -12,7 +12,14 @@ import {
   Settings,
   Sparkles,
 } from "lucide-react";
-
+const item = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+  },
+};
 const items = [
   { label: "Dashboard", icon: LayoutDashboard },
   { label: "Courses", icon: BookOpen },
@@ -28,12 +35,13 @@ export default function Sidebar() {
 
   const toggleLabel = useMemo(
     () => (expanded ? "Collapse menu" : "Expand menu"),
-    [expanded]
+    [expanded],
   );
 
   return (
     <nav className="relative h-full w-16 shrink-0">
       <motion.div
+        variants={item}
         className="tile-surface absolute left-0 top-0 h-full w-60 overflow-hidden rounded-3xl border border-white/10 bg-linear-to-b from-slate-950/95 via-slate-950/80 to-slate-900/80"
         animate={{ x: expanded ? 0 : -160, opacity: expanded ? 1 : 0.85 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
@@ -48,7 +56,11 @@ export default function Sidebar() {
               whileTap={{ scale: 0.95 }}
               whileHover={{ scale: 1.05 }}
             >
-              {expanded ? <ChevronLeft size={16} /> : <ChevronRight size={16} />}
+              {expanded ? (
+                <ChevronLeft size={16} />
+              ) : (
+                <ChevronRight size={16} />
+              )}
             </motion.button>
           </div>
           <div className="flex flex-col gap-2">
@@ -69,7 +81,11 @@ export default function Sidebar() {
                       <motion.span
                         layoutId="sidebar-nav-highlight"
                         className="absolute inset-0 rounded-xl bg-white/8 ring-1 ring-white/10"
-                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 20,
+                        }}
                       />
                     ) : null}
                     <span
@@ -95,7 +111,9 @@ export default function Sidebar() {
           </div>
           <div className="mt-auto rounded-2xl border border-white/10 bg-white/5 p-4 text-xs text-slate-300">
             <p className="font-semibold text-white">Pro Studio</p>
-            <p className="mt-1 text-slate-400">Launch immersive labs with AI tutors.</p>
+            <p className="mt-1 text-slate-400">
+              Launch immersive labs with AI tutors.
+            </p>
             <motion.button
               className="mt-3 w-full rounded-full border border-white/20 py-2 text-xs font-semibold text-white"
               whileHover={{ scale: 1.04 }}

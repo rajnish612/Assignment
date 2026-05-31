@@ -12,16 +12,13 @@ export default async function Home() {
       <div className="absolute left-1/3 top-[-120px] h-[420px] w-[420px] rounded-full bg-cyan-500/10 blur-[160px]" />
       <div className="absolute right-0 top-32 h-[380px] w-[380px] rounded-full bg-violet-500/10 blur-[160px]" />
 
-      <div className="relative mx-auto flex min-h-screen max-w-6xl gap-6 px-4 py-8 sm:px-6">
-        <aside className="flex">
-          <Sidebar />
-        </aside>
-        <main className="flex flex-1 flex-col gap-6">
-          <Suspense fallback={<BentoSkeleton />}>
-            <Dashboard />
-          </Suspense>
-        </main>
-      </div>
+      
+
+      <main>
+        <Suspense fallback={<BentoSkeleton />}>
+          <Dashboard />
+        </Suspense>
+      </main>
     </div>
   );
 }
