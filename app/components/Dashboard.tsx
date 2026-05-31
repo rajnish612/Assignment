@@ -37,15 +37,6 @@ const Dashboard = async () => {
               Student Dashboard
             </h2>
           </div>
-          <div className="flex items-center gap-3">
-            <button className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300 transition-transform duration-300 hover:scale-105">
-              Sync
-            </button>
-            <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              <span className="text-xs text-slate-300">Live data</span>
-            </div>
-          </div>
         </header>
 
         <section className="grid grid-cols-12 gap-6">
