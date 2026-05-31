@@ -10,12 +10,14 @@ const activity = [
 export default function ActivityTile() {
   return (
     <motion.article
-      className="tile-surface tile-hover col-span-12 flex h-full flex-col rounded-3xl p-6 md:col-span-4"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="tile-surface tile-hover relative col-span-12 flex h-full flex-col overflow-hidden rounded-3xl p-6 md:col-span-4"
       whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
+      <motion.div
+        className="absolute inset-0 rounded-3xl border-2 border-white/5"
+        whileHover={{ borderColor: "rgba(255,255,255,0.15)" }}
+      />
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Activity</p>
@@ -29,7 +31,7 @@ export default function ActivityTile() {
         {activity.map((value, index) => (
           <motion.div
             key={`${value}-${index}`}
-            className="flex-1 rounded-full bg-gradient-to-b from-cyan-400/60 via-violet-400/40 to-transparent"
+            className="flex-1 rounded-full bg-linear-to-b from-cyan-400/60 via-violet-400/40 to-transparent"
             style={{ height: `${value * 4}px`, transformOrigin: "bottom" }}
             initial={{ scaleY: 0.4, opacity: 0.6 }}
             animate={{ scaleY: 1, opacity: 1 }}

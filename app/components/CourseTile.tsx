@@ -33,7 +33,7 @@ export default function CourseTile({ title, progress, icon_name }: CourseData) {
   return (
     <motion.article
       variants={item}
-      className="tile-surface tile-hover flex h-full flex-col justify-between rounded-3xl p-5"
+      className="tile-surface tile-hover relative flex h-full flex-col justify-between overflow-hidden rounded-3xl p-5"
       whileHover={{
         scale: 1.02,
         y: -4,
@@ -44,6 +44,11 @@ export default function CourseTile({ title, progress, icon_name }: CourseData) {
         damping: 20,
       }}
     >
+      <motion.span
+        className="pointer-events-none absolute inset-0 rounded-3xl bg-linear-to-br from-cyan-400/15 via-violet-400/10 to-emerald-400/15 opacity-0"
+        whileHover={{ opacity: 1 }}
+        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      />
       <motion.div
         className="absolute inset-0 rounded-3xl border-2 border-white/5"
         whileHover={{
@@ -52,7 +57,7 @@ export default function CourseTile({ title, progress, icon_name }: CourseData) {
       />
       <Icon />
       <div>
-        <div className={`h-10 w-10 rounded-2xl bg-gradient-to-br  mb-4`} />
+        <div className="mb-4 h-10 w-10 rounded-2xl bg-linear-to-br" />
         <h3 className="text-lg font-semibold text-white">{title}</h3>
       </div>
       <div className="mt-4 space-y-3">
@@ -64,7 +69,7 @@ export default function CourseTile({ title, progress, icon_name }: CourseData) {
           <motion.div
             custom={progress}
             variants={bar}
-            className="h-full rounded-full bg-gradient-to-r from-cyan-400 via-violet-400 to-emerald-400"
+            className="h-full rounded-full bg-linear-to-r from-cyan-400 via-violet-400 to-emerald-400"
           />
         </div>
         <div className="flex items-center justify-between text-xs text-slate-400">

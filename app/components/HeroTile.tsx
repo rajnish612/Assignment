@@ -12,12 +12,14 @@ interface HeroTileProps {
 export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps) {
   return (
     <motion.article
-      className="tile-surface tile-hover col-span-12 flex h-full flex-col justify-between gap-6 rounded-3xl p-6 md:col-span-8"
-      initial={{ opacity: 0, y: 12 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
+      className="tile-surface tile-hover relative col-span-12 flex h-full flex-col justify-between gap-6 overflow-hidden rounded-3xl p-6 md:col-span-8"
       whileHover={{ y: -4, scale: 1.01 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
+      <motion.div
+        className="absolute inset-0 rounded-3xl border-2 border-white/5"
+        whileHover={{ borderColor: "rgba(255,255,255,0.15)" }}
+      />
       <div>
         <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Student Dashboard</p>
         <h1 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
