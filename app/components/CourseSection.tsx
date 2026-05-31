@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
+import CourseErrorState from "./CourseErrorState";
 import CourseTile from "./CourseTile";
 import CoursesGrid from "./CourseGrid";
 
@@ -15,10 +16,9 @@ export default async function CoursesSection() {
     .order("created_at", { ascending: false });
 
   if (error) {
+    console.error("Failed to load courses:", error);
     return (
-      <div className="col-span-full text-center text-slate-400 py-10">
-        Failed to load courses. Please try again later.
-      </div>
+      <CourseErrorState message="We could not connect to the database. Please try again in a moment." />
     );
   }
   return (
