@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import { LayoutGroup, motion } from "motion/react";
 import {
   BarChart3,
   BookOpen,
@@ -24,6 +24,7 @@ const items = [
 
 export default function Sidebar() {
   const [expanded, setExpanded] = useState(false);
+  const [activeItem, setActiveItem] = useState(items[0].label);
 
   const toggleLabel = useMemo(
     () => (expanded ? "Collapse menu" : "Expand menu"),
@@ -33,7 +34,7 @@ export default function Sidebar() {
   return (
     <nav className="relative h-full w-16 shrink-0">
       <motion.div
-        className="tile-surface absolute left-0 top-0 h-full w-60 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-b from-slate-950/95 via-slate-950/80 to-slate-900/80"
+        className="tile-surface absolute left-0 top-0 h-full w-60 overflow-hidden rounded-3xl border border-white/10 bg-linear-to-b from-slate-950/95 via-slate-950/80 to-slate-900/80"
         animate={{ x: expanded ? 0 : -160, opacity: expanded ? 1 : 0.85 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
@@ -51,20 +52,46 @@ export default function Sidebar() {
             </motion.button>
           </div>
           <div className="flex flex-col gap-2">
-            {items.map(({ label, icon: Icon }) => (
-              <motion.button
-                key={label}
-                className="group flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left text-sm text-slate-300"
-                type="button"
-                whileHover={{ x: 4 }}
-                transition={{ duration: 0.2 }}
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900/70 text-slate-200 group-hover:text-white">
-                  <Icon size={18} />
-                </span>
-                <span className="text-sm font-medium">{label}</span>
-              </motion.button>
-            ))}
+            <LayoutGroup>
+              {items.map(({ label, icon: Icon }) => {
+                const isActive = activeItem === label;
+
+                return (
+                  <motion.button
+                    key={label}
+                    className="group relative flex w-full items-center gap-3 overflow-hidden rounded-xl px-3 py-2 text-left text-sm text-slate-300"
+                    type="button"
+                    onClick={() => setActiveItem(label)}
+                    whileHover={{ x: 4 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {isActive ? (
+                      <motion.span
+                        layoutId="sidebar-nav-highlight"
+                        className="absolute inset-0 rounded-xl bg-white/8 ring-1 ring-white/10"
+                        transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                      />
+                    ) : null}
+                    <span
+                      className={`relative flex h-9 w-9 items-center justify-center rounded-xl transition-colors duration-300 ${
+                        isActive
+                          ? "bg-slate-900/90 text-white"
+                          : "bg-slate-900/70 text-slate-200 group-hover:text-white"
+                      }`}
+                    >
+                      <Icon size={18} />
+                    </span>
+                    <span
+                      className={`relative text-sm font-medium transition-colors duration-300 ${
+                        isActive ? "text-white" : "text-slate-300"
+                      }`}
+                    >
+                      {label}
+                    </span>
+                  </motion.button>
+                );
+              })}
+            </LayoutGroup>
           </div>
           <div className="mt-auto rounded-2xl border border-white/10 bg-white/5 p-4 text-xs text-slate-300">
             <p className="font-semibold text-white">Pro Studio</p>
