@@ -1,12 +1,8 @@
-import { cookies } from "next/headers";
-import ActivityTile from "./components/ActivityTile";
-
-import HeroTile from "./components/HeroTile";
+import { Suspense } from "react";
+import Dashboard from "./components/Dashboard";
 import Sidebar from "./components/Sidebar";
 
-import { Suspense } from "react";
-import CourseSkeleton from "./components/CourseSkeleton";
-import CoursesSection from "./components/CourseSection";
+import BentoSkeleton from "./components/BentoSkeleton";
 
 export default async function Home() {
   return (
@@ -21,46 +17,8 @@ export default async function Home() {
           <Sidebar />
         </aside>
         <main className="flex flex-1 flex-col gap-6">
-          <header className="flex items-center justify-between">
-            <div>
-              <p className="text-xs uppercase tracking-[0.3em] text-slate-500">
-                Overview
-              </p>
-              <h2 className="mt-2 text-2xl font-semibold text-white">
-                Student Dashboard
-              </h2>
-            </div>
-            <div className="flex items-center gap-3">
-              <button className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300 transition-transform duration-300 hover:scale-105">
-                Sync
-              </button>
-              <div className="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-2">
-                <span className="h-2 w-2 rounded-full bg-emerald-400" />
-                <span className="text-xs text-slate-300">Live data</span>
-              </div>
-            </div>
-          </header>
-
-          <section className="grid grid-cols-12 gap-6">
-            <HeroTile name="Aria" streakDays={28} weeklyGoal="7.5 hrs" />
-            <ActivityTile />
-          </section>
-
-          <section className="flex items-center justify-between">
-            <div>
-              <h3 className="text-lg font-semibold text-white">
-                Active Courses
-              </h3>
-              <p className="text-xs text-slate-400">
-                Personalized learning lineup
-              </p>
-            </div>
-            <button className="rounded-full border border-white/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-slate-300 transition-transform duration-300 hover:scale-105">
-              View all
-            </button>
-          </section>
-          <Suspense fallback={<CourseSkeleton />}>
-            <CoursesSection />
+          <Suspense fallback={<BentoSkeleton />}>
+            <Dashboard />
           </Suspense>
         </main>
       </div>
