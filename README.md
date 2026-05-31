@@ -63,11 +63,6 @@ CoursesGrid
 BentoStagger
 
 
-**How Data Flows Between Them**
-Server Component fetches data from Supabase
-Data is passed as props to Client Components
-Client Components handle rendering + animations
-UI interactions happen only after hydration
 ---
 
 ## Challenges Faced
