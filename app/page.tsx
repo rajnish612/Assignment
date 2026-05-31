@@ -4,40 +4,14 @@ import CourseTile, { type CourseTileData } from "./components/CourseTile";
 import HeroTile from "./components/HeroTile";
 import Sidebar from "./components/Sidebar";
 import { createClient } from "@/utils/supabase/server";
-const courses: CourseTileData[] = [
-  {
-    id: "course-orbit",
-    title: "Quantum Interface Design",
-    subtitle: "Adaptive pathways · 12 modules",
-    progress: 62,
-    nextSession: "Tonight · 19:30",
-    accent: "cyan",
-  },
-  {
-    id: "course-pulse",
-    title: "Neural Systems Lab",
-    subtitle: "Realtime diagnostics · 8 labs",
-    progress: 41,
-    nextSession: "Tomorrow · 08:00",
-    accent: "violet",
-  },
-  {
-    id: "course-aurora",
-    title: "Holographic Storytelling",
-    subtitle: "Immersive narratives · 10 lessons",
-    progress: 78,
-    nextSession: "Friday · 14:00",
-    accent: "emerald",
-  },
-];
 
 export default async function Home() {
   const cookieStore = await cookies();
   const supabase = createClient(cookieStore);
-  // const { data: courses, error } = await supabase
-  //   .from("courses")
-  //   .select("*")
-  //   .order("created_at", { ascending: false });
+  const { data: courses, error } = await supabase
+    .from("courses")
+    .select("*")
+    .order("created_at", { ascending: false });
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#090b14] text-white">
@@ -91,7 +65,7 @@ export default async function Home() {
           </section>
 
           <section className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {courses.map((course) => (
+            {courses?.map((course) => (
               <CourseTile key={course.id} {...course} />
             ))}
           </section>

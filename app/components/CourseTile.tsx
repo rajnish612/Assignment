@@ -3,28 +3,22 @@
 import { motion } from "motion/react";
 import { ArrowUpRight, Clock3 } from "lucide-react";
 
-export interface CourseTileData {
+export interface CourseData {
   id: string;
   title: string;
-  subtitle: string;
   progress: number;
-  nextSession: string;
-  accent: "cyan" | "violet" | "emerald";
+  icon_name: string;
+  createdAt: Date;
 }
 
 const accentMap = {
   cyan: "from-cyan-400/20 via-transparent to-transparent text-cyan-200",
   violet: "from-violet-400/20 via-transparent to-transparent text-violet-200",
-  emerald: "from-emerald-400/20 via-transparent to-transparent text-emerald-200",
+  emerald:
+    "from-emerald-400/20 via-transparent to-transparent text-emerald-200",
 };
 
-export default function CourseTile({
-  title,
-  subtitle,
-  progress,
-  nextSession,
-  accent,
-}: CourseTileData) {
+export default function CourseTile({ title, progress }: CourseData) {
   return (
     <motion.article
       className="tile-surface tile-hover flex h-full flex-col justify-between rounded-3xl p-5"
@@ -34,9 +28,10 @@ export default function CourseTile({
       whileHover={{ y: -4, scale: 1.01 }}
     >
       <div>
-        <div className={`h-10 w-10 rounded-2xl bg-gradient-to-br ${accentMap[accent]} mb-4`} />
+        <div
+          className={`h-10 w-10 rounded-2xl bg-gradient-to-br  mb-4`}
+        />
         <h3 className="text-lg font-semibold text-white">{title}</h3>
-        <p className="mt-1 text-xs text-slate-400">{subtitle}</p>
       </div>
       <div className="mt-4 space-y-3">
         <div className="flex items-center justify-between text-xs text-slate-400">
@@ -50,9 +45,6 @@ export default function CourseTile({
           />
         </div>
         <div className="flex items-center justify-between text-xs text-slate-400">
-          <span className="inline-flex items-center gap-2">
-            <Clock3 size={12} /> {nextSession}
-          </span>
           <span className="inline-flex items-center gap-1 text-white">
             Continue <ArrowUpRight size={14} />
           </span>
