@@ -6,11 +6,9 @@ import { motion } from "motion/react";
 const container = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 1 },
+    transition: { staggerChildren: 0.2 },
   },
 };
-
-
 
 const BentoStagger = ({ children }: { children: ReactNode }) => {
   return (
