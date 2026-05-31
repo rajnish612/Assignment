@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📊 Student Dashboard (Next.js + Supabase + Framer Motion)
 
-## Getting Started
+A modern, animated student dashboard built using **Next.js App Router**, **Supabase**, **Framer Motion**, and **Tailwind CSS**.  
+The project focuses on clean server/client separation, smooth UI interactions, and a Bento-style layout system.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+-  Server-side data fetching with Supabase
+-  Bento-style responsive dashboard layout
+-  Smooth animations using Framer Motion
+-  Staggered page load animations
+-  Interactive sidebar with layout animations
+-  Course progress tracking UI
+-  Skeleton loading states with Suspense
+-  Graceful error handling UI
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Tech Stack
 
-## Learn More
+- Next.js (App Router)
+- React Server Components (RSC)
+- Supabase (Database)
+- Framer Motion (Animations)
+- Tailwind CSS
+- Lucide Icons
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture Overview
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+This project uses a **hybrid architecture** combining Server and Client Components.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Challenges Faced
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Server vs Client Component Confusion
+
+One of the main challenges was correctly separating Server Components and Client Components in Next.js App Router.
+
+Framer Motion only works in Client Components
+Supabase data fetching is best handled in Server Components
+
+Solution:
+Kept all data fetching in Server Components and moved all animations and interactions into Client Components.
+
+
+2. Staggered Animations with Server Data
+
+Since data is fetched on the server, applying staggered animations directly was not possible.
+
+Solution:
+
+Wrapped UI inside a Client Component (CoursesGrid)
+Used staggerChildren in Framer Motion to animate items sequentially after render
+
+3. Layout Issues with Sidebar
+
+The sidebar initially had problems with:
+
+Height not matching full screen
+Width collapsing unexpectedly
+Flex and absolute positioning conflicts
+
+Solution:
+Rebuilt layout using proper flex structure
+Ensured parent container controls height (min-h-screen)
+Removed conflicting width constraints
+
+4. UI Responsiveness and Bento Layout Alignment
+
+Creating a consistent Bento grid layout with different tile sizes required careful control of:
+
+Grid spans
+Flex behavior
+Responsive breakpoints
+
+
+Solution:
+Standardized grid system
+Used consistent col-span-* rules for tiles
+
+
+### 🔹 Server Components (Data Layer)
+
+Server components are responsible for:
+
+- Fetching data from Supabase
+- Handling database queries securely
+- Rendering initial UI structure
+
+Example:
+
+```ts
+const { data: courses, error } = await supabase
+  .from("courses")
+  .select("*")
+  .order("created_at", { ascending: false });
