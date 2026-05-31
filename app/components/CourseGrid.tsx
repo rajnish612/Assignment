@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 const container = {
   hidden: {},
   show: {
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.5 },
   },
 };
 
