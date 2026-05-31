@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "motion/react";
 import { Activity, Calendar } from "lucide-react";
 
 const activity = [
@@ -6,7 +9,13 @@ const activity = [
 
 export default function ActivityTile() {
   return (
-    <article className="tile-surface tile-hover col-span-12 flex h-full flex-col rounded-3xl p-6 md:col-span-4">
+    <motion.article
+      className="tile-surface tile-hover col-span-12 flex h-full flex-col rounded-3xl p-6 md:col-span-4"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -4, scale: 1.01 }}
+    >
       <div className="flex items-start justify-between">
         <div>
           <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Activity</p>
@@ -18,10 +27,13 @@ export default function ActivityTile() {
       </div>
       <div className="mt-6 flex flex-1 items-end gap-2">
         {activity.map((value, index) => (
-          <div
+          <motion.div
             key={`${value}-${index}`}
             className="flex-1 rounded-full bg-gradient-to-b from-cyan-400/60 via-violet-400/40 to-transparent"
-            style={{ height: `${value * 4}px` }}
+            style={{ height: `${value * 4}px`, transformOrigin: "bottom" }}
+            initial={{ scaleY: 0.4, opacity: 0.6 }}
+            animate={{ scaleY: 1, opacity: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: index * 0.02 }}
           />
         ))}
       </div>
@@ -31,6 +43,6 @@ export default function ActivityTile() {
         </span>
         <span className="text-white">+18% vs last month</span>
       </div>
-    </article>
+    </motion.article>
   );
 }

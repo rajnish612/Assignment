@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "motion/react";
 import { Flame, Trophy, Zap } from "lucide-react";
 
 interface HeroTileProps {
@@ -8,7 +11,13 @@ interface HeroTileProps {
 
 export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps) {
   return (
-    <article className="tile-surface tile-hover col-span-12 flex h-full flex-col justify-between gap-6 rounded-3xl p-6 md:col-span-8">
+    <motion.article
+      className="tile-surface tile-hover col-span-12 flex h-full flex-col justify-between gap-6 rounded-3xl p-6 md:col-span-8"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+      whileHover={{ y: -4, scale: 1.01 }}
+    >
       <div>
         <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Student Dashboard</p>
         <h1 className="mt-3 text-3xl font-semibold text-white md:text-4xl">
@@ -51,6 +60,6 @@ export default function HeroTile({ name, streakDays, weeklyGoal }: HeroTileProps
           <p className="mt-1 text-xs text-slate-400">Orion cohort</p>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }

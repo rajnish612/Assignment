@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "motion/react";
 import { ArrowUpRight, Clock3 } from "lucide-react";
 
 export interface CourseTileData {
@@ -23,7 +26,13 @@ export default function CourseTile({
   accent,
 }: CourseTileData) {
   return (
-    <article className="tile-surface tile-hover flex h-full flex-col justify-between rounded-3xl p-5">
+    <motion.article
+      className="tile-surface tile-hover flex h-full flex-col justify-between rounded-3xl p-5"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.45, ease: "easeOut" }}
+      whileHover={{ y: -4, scale: 1.01 }}
+    >
       <div>
         <div className={`h-10 w-10 rounded-2xl bg-gradient-to-br ${accentMap[accent]} mb-4`} />
         <h3 className="text-lg font-semibold text-white">{title}</h3>
@@ -49,6 +58,6 @@ export default function CourseTile({
           </span>
         </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
