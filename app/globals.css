@@ -1,8 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0b10;
+  --foreground: #e8e8f0;
+  --surface-1: #0f111a;
+  --surface-2: #141827;
+  --surface-3: #1a2033;
+  --stroke-1: rgba(255, 255, 255, 0.08);
+  --stroke-2: rgba(148, 163, 184, 0.18);
+  --glow-cyan: rgba(56, 189, 248, 0.38);
+  --glow-violet: rgba(167, 139, 250, 0.38);
+  --glow-emerald: rgba(52, 211, 153, 0.32);
 }
 
 @theme inline {
@@ -12,15 +20,71 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+}
+
+.noise-layer {
+  background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E");
+}
+
+.bg-grid {
+  background-image: radial-gradient(circle at 1px 1px, rgba(148, 163, 184, 0.18) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+
+.glow-ring {
+  box-shadow: 0 0 0 1px var(--stroke-1), 0 20px 60px rgba(8, 9, 20, 0.6),
+    0 0 40px var(--glow-cyan);
+}
+
+.tile-surface {
+  background: linear-gradient(135deg, rgba(20, 24, 39, 0.98), rgba(12, 15, 26, 0.95));
+  border: 1px solid var(--stroke-1);
+}
+
+.tile-hover {
+  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  will-change: transform;
+}
+
+.tile-hover:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: var(--stroke-2);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px rgba(7, 9, 20, 0.65);
+}
+
+.fade-in {
+  animation: fade-in 700ms ease forwards;
+  opacity: 0;
+}
+
+.streak-pulse {
+  animation: streak-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes streak-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.4);
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 0 10px rgba(56, 189, 248, 0);
+  }
 }
