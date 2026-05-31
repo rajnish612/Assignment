@@ -47,14 +47,13 @@ body {
 }
 
 .tile-hover {
-  transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+  transition: transform 300ms ease, opacity 300ms ease;
   will-change: transform;
 }
 
 .tile-hover:hover {
   transform: translateY(-4px) scale(1.01);
-  border-color: var(--stroke-2);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 60px rgba(7, 9, 20, 0.65);
+  opacity: 0.98;
 }
 
 .fade-in {
